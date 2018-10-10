@@ -1,6 +1,12 @@
-<<<<<<< HEAD
 import React, { Component } from 'react'
-import { Text, View, Dimensions, Animated, ViewPropTypes } from 'react-native'
+import {
+  Text,
+  View,
+  Dimensions,
+  Animated,
+  ViewPropTypes,
+  Platform,
+} from 'react-native'
 import PropTypes from 'prop-types'
 import XDate from 'xdate'
 
@@ -13,29 +19,6 @@ import { VelocityTracker } from '../input'
 
 const HEADER_HEIGHT = 104
 const KNOB_HEIGHT = 24
-=======
-import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  Dimensions,
-  Animated,
-  ViewPropTypes,
-  Platform
-} from 'react-native';
-import PropTypes from 'prop-types';
-import XDate from 'xdate';
-
-import {parseDate, xdateToData} from '../interface';
-import dateutils from '../dateutils';
-import CalendarList from '../calendar-list';
-import ReservationsList from './reservation-list';
-import styleConstructor from './style';
-import { VelocityTracker } from '../input';
-
-const HEADER_HEIGHT = 104;
-const KNOB_HEIGHT = 24;
->>>>>>> 82b27e4... revert for android
 
 //Fallback when RN version is < 0.44
 const viewPropTypes = ViewPropTypes || View.propTypes
@@ -115,7 +98,9 @@ export default class AgendaView extends Component {
     this.scrollTimeout = undefined
     this.headerState = 'idle'
     this.state = {
-      scrollY: new Animated.Value(Platform.OS === 'ios' ? Math.max(0, this.viewHeight - HEADER_HEIGHT) : 0),
+      scrollY: new Animated.Value(
+        Platform.OS === 'ios' ? Math.max(0, this.viewHeight - HEADER_HEIGHT) : 0
+      ),
       calendarIsReady: false,
       calendarScrollable: Platform.select({ ios: true, android: false }),
       firstResevationLoad: false,
@@ -150,11 +135,13 @@ export default class AgendaView extends Component {
     // When user touches knob, the actual component that receives touch events is a ScrollView.
     // It needs to be scrolled to the bottom, so that when user moves finger downwards,
     // scroll position actually changes (it would stay at 0, when scrolled to the top).
-<<<<<<< HEAD
-    this.setScrollPadPosition(this.calendarOffset(), false)
-=======
-    this.setScrollPadPosition(Platform.select({ ios: this.calendarOffset(), android: this.initialScrollPadPosition() }), false);
->>>>>>> 82b27e4... revert for android
+    this.setScrollPadPosition(
+      Platform.select({
+        ios: this.calendarOffset(),
+        android: this.initialScrollPadPosition(),
+      }),
+      false
+    )
     // delay rendering calendar in full height because otherwise it still flickers sometimes
     setTimeout(() => this.setState({ calendarIsReady: true }), 0)
   }
@@ -241,11 +228,15 @@ export default class AgendaView extends Component {
     this._isMounted = false
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (Platform.OS === 'android') {
-      this.knobTracker.add(0);
-      this.setScrollPadPosition(0, true);
-      this.calendar.scrollToDay(this.state.selectedDay, this.calendarOffset() + 1, true);
+      this.knobTracker.add(0)
+      this.setScrollPadPosition(0, true)
+      this.calendar.scrollToDay(
+        this.state.selectedDay,
+        this.calendarOffset() + 1,
+        true
+      )
     }
   }
 
