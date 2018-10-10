@@ -126,7 +126,9 @@ class CalendarHeader extends Component {
             <Text allowFontScaling={false} style={this.style.monthText} accessibilityTraits='header'>
               {this.props.month.toString(this.props.monthFormat)}
             </Text>
-            {indicator}
+            <View style={{ paddingLeft: 14 paddingBottom: 4 }}>
+              {indicator}
+            </View>
           </View>
           {rightArrow}
         </View>
