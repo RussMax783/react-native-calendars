@@ -134,7 +134,15 @@ class CalendarHeader extends Component {
             >
               {this.props.month.toString(this.props.monthFormat)}
             </Text>
-            <View style={{ paddingLeft: 14, paddingBottom: 4 }}>
+            <View
+              style={{
+                paddingLeft: 10,
+                paddingBottom: 12,
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'center',
+              }}
+            >
               {indicator}
             </View>
           </View>
